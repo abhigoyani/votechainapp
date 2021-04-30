@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vote</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    </head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        overflow: hidden;
+      }
+      .header {
+        /* z-index: 4; */
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* border: 1px solid; */
+      }
+      .header li {
+        margin: 10px;
+        transition: 0.5s;
+        padding: 15px 42px;
+        list-style: none;
+      }
+      .header li a:hover {
+        text-decoration: underline;
+        color: #5995fd;
+      }
+      .header li a {
+        text-decoration: none;
+        color: black;
+      }
+      .main {
+        /* background-color: aqua; */
+        /* clip-path: circle(40%); */
+        width: 100%;
+        height: 90vh;
+        display: flex;
+        /* grid-template-columns: auto auto; */
+        align-items: center;
+        justify-content: center;
+        margin: 20px;
+      }
+      .section {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        /* display: flex; */
+        /* background-color: aqua; */
+        margin: 20px;
+        padding: 30px;
+        animation: 0.5 ease-in-out;
+        /* border: 2px solid; */
+      }
+      .bg {
+        position: absolute;
+        height: 100vh;
+        width: 100%;
+        z-index: -1;
+        background-image: linear-gradient(to right, #4481eb, #04befe);
+        clip-path: circle(50% at 90% 25%);
+      }
+      .logo {
+        /* height: 70%; */
+        /* animation: 0.5 ease-in-out; */
+        margin: auto;
+        width: 75%;
+      }
+      .title h1,
+      .title p {
+        margin: 40px;
+      }
+      .title h1 {
+        font-size: 3rem;
+      }
+      .bt {
+        width: 100%;
+      }
+      .btns {
+        width: 100%;
+        margin: 0 40px;
+        /* text-align: left; */
+        /* display: block; */
+      }
+      .btn {
+        padding: 17px 40px;
+        margin: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        background: none;
+        border: none;
+        transition: 0.5s;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .btn {
+        background-color: #5995fd;
+        color: white;
+        border: 2px solid #5995fd;
+      }
+      .btn:hover {
+        background: none;
+        color: black;
+      }
+      .inp {
+        width: 275px;
+        background-color: #f0f0f0;
+        margin: 10px 0;
+        height: 55px;
+        border-radius: 55px;
+        display: grid;
+        grid-template-columns: 15% 85%;
+        padding: 0 0.4rem;
+        position: relative;
+        border: none;
+        padding-left: 20px;
+        outline: none;
+      }
+      .lbl {
+        padding: 0 10px;
+      }
+
+      input[type="radio"]:checked {
+        background-color: #04befe;
+      }
+      @media (max-width: 970px) {
+        .main {
+          flex-direction: column;
+        }
+        .logo {
+          display: none;
+        }
+        .bg {
+          clip-path: circle(70% at 0% 30%);
+        }
+        .btn {
+          color: black;
+          background: none;
+          font-size: 13px;
+          border: 2px solid white;
+        }
+      }
+      @media (max-width: 640px) {
+        .btn {
+          font-size: 13px;
+          padding: 14px 27px;
+        }
+      }
+      @media (max-width: 503px) {
+        .bg {
+          clip-path: circle(70% at 0% 35%);
+        }
+      }
+      .text {
+        width: 80%;
+      }
+      .bt {
+        width: 80%;
+      }
+      @media (max-width: 1070px) {
+        .text {
+          width: 100%;
+        }
+        .bt {
+          width: 100%;
+        }
+      }
+      @media (max-width: 1120px) {
+        .logo {
+          height: 70%;
+        }
+      }
+      .container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        /* margin: 40px; */
+      }
+      .container h1 {
+        padding: 15px;
+      }
+      .header {
+      /* z-index: 4; */
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* border: 1px solid; */
+    }
+    .header li {
+      margin: 10px;
+      transition: 0.5s;
+      padding: 15px 42px;
+      list-style: none;
+    }
+    .header li a:hover {
+      text-decoration: underline;
+      color: #5995fd;
+    }
+    .header li a {
+      text-decoration: none;
+      color: black;
+    }
+    </style>
+<body>
+  <div class="bg"></div>
+  <div class="header">
+    <li><a href="">Block Exporer</a></li>
+    <li><a href="download"> Download Blockchain</a></li>
+    <li><a href="/vote">find Poll</a></li>
+    <li><a href="/account">Account</a></li>
+  </div>
+  <div class="main" data-aos="fade-up">
+    <div class="section">
+      <form action="" method="post" class="container">
+        <!-- <h1>Title</h1> -->
+        <div class="input-field">
+        </div>
+      </form>
+        <input type="submit" class="btn" name="submit" value="submit" />
+    </div>
+    <div class="section">
+      <div class="logo">
+        <img src="{{url_for('static',filename='img/dark.svg')}}" alt="" />
+      </div>
+      <!-- <div class="logo"></div> -->
+    </div>
+  </div>
+    <!-- <div class="container">
+        <div class="options">
+            
+        </div>
+    </div> -->
+    <script>
+            var options = document.querySelector(".input-field");
+            var container  = document.querySelector(".container");
+            //document.cookie = "title=votechain";
+            var cookie1 = (document.cookie);
+
+            console.log(cookie1)
+            cookie1.slice(6,cookie1.length)
+            // console.log(cookie1.title);
+            // console.log(typeof cookie1);
+            // console.log("cookie : ", cookie);
+            //var container = document.getElementsByClassName("container");
+            cookie1= cookie1.slice(6,cookie1.length)
+            cookie1= cookie1.replaceAll('054',",");
+            cookie1= cookie1.replaceAll("\\","");
+            cookie1= cookie1.replace("\"","");
+            cookie1 = cookie1.substring(0, cookie1.length - 1);
+            eData = JSON.parse(cookie1);
+            console.log(eData);
+            
+            var title = "<h1>" + eData.title + "</h1>";
+            container.insertAdjacentHTML("afterbegin", title);
+            console.log("title :: ", eData.title);
+            
+            eData.option.map(op => {
+              var radio = '<input style="margin:9px 0" type="radio" name="option" value="'+op+'" id="radio" /><label class="lbl" for="option">'+ op + '</label></br>';
+              options.insertAdjacentHTML("beforeend", radio);
+            })
+
+            var input = '<input class="inp" type="text" id="key" name="pKey" placeholder="enter your key" />';
+            options.insertAdjacentHTML("beforeend", input);
+            // var titile = document.cookie.title;
+            // console.log(titile);
+
+    </script>
+    <h1></h1>
+</body>
+</html>

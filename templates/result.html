@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>result</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+    #myChart{
+        width: 620px !important;
+        height: 620px !important;
+        z-index: 10;
+    }
+    #header-title {
+        text-align: center;
+        margin: 1% auto;
+        padding: 10px;
+    }
+    .main {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .section {
+        height: 100%;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    body {
+        overflow: hidden;
+    }
+    .back {
+        position: absolute;
+      height: 100vh;
+      width: 100%;
+      z-index: -1;
+      background-image: linear-gradient(to right, #4481eb, #04befe);
+      clip-path: circle(50% at 90% 25%);
+    }
+    .logo {
+        height: 70%;
+        width: 70%;
+    }
+    .btn {
+      width: 150px;
+      background-color: #5995fd;
+      border: none;
+      outline: none;
+      height: 49px;
+      letter-spacing: 2px;
+      border-radius: 49px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+    .btn:hover {
+      background-color: #4d84e2;
+    }
+    .btn a{
+        text-decoration: none;
+        color: white;
+    }
+    .header {
+      /* z-index: 4; */
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* border: 1px solid; */
+    }
+    .header li {
+      margin: 10px;
+      transition: 0.5s;
+      padding: 15px 42px;
+      list-style: none;
+    }
+    .header li a:hover {
+      text-decoration: underline;
+      color: #5995fd;
+    }
+    .header li a {
+      text-decoration: none;
+      color: black;
+    }
+</style>
+<body>
+    <div class="header">
+        <li><a href="">Block Exporer</a></li>
+        <li><a href="download"> Download Blockchain</a></li>
+        <li><a href="/vote">find Poll</a></li>
+        <li><a href="/account">Account</a></li>
+      </div>
+    <div class="back">
+    </div>
+    <div class="main" data-aos="fade-up">
+        <div class="section">
+            <h1 id="header-title"></h1>
+            <canvas  id="myChart"></canvas>
+            <button class="btn" onclick="redirect()"><a href="#">Vote</a></button>
+        </div>
+        <div class="section">
+            <div class="logo">
+                <img src="{{url_for('static',filename='img/dark.svg')}}" />
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script type="text/javascript">
+         var ctx = document.querySelector("#myChart").getContext("2d");
+         var title = document.querySelector("#header-title");
+  
+
+        var electionId = window.location.href;
+        electionId = electionId.replace('http://127.0.0.1:5000/vote/','');
+        var url = 'http://127.0.0.1:5000/get-option/' + electionId;
+
+        // {'options': {'ha': 1, 'mari ne lesu': 2, 'na': 0}, 'title': 'raj party dese?'}
+    //    var res= await getResult(url);
+        // console.log("res   ::",res);
+        // async function getResult(url) {
+        //   let x = await fetch(url);
+        //   let y = await x.json();
+        //   return y;
+        // }
+            function redirect(){
+                var x=window.location.href;
+               var uri=x+"/vote";
+                window.location.href=uri;
+            }
+        const setHeders={
+            Accept:"application/json"
+        }
+       var Data= [];
+       var option = []
+       var colorArray = ['red', 'green', 'orange', '#FFFF99', '#00B3E6', 
+		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+		  '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
+		  '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+		  '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', 
+		  '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+		  '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', 
+		  '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
+		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+        const color = [];
+        var i = 0;
+       fetch(url,setHeders).then(res => res.json()).then((data)=>{
+           title.innerHTML = data.title;
+        //    for(var i=0;i<data.options.length;i++){
+           for(var key in data.options){
+               Data.push(data.options[key]);  
+               console.log("Data[] : ", Data[i])
+               option.push(key)
+           }
+        //    }
+        /*Data.map(d => {
+            color.push(colorArray[i])
+        })*/
+        /*for(var i=0; i < Data.length; i++) {
+            console.log("colorArray : ", colorArray[i])
+            color.push(colorArray[i]);
+        }*/
+        console.log("data = ",Data);
+        console.log("color : ", color);
+        console.log("colorArray : ", colorArray);
+        console.log("len : ", Data.length)
+          // const response=res.json().then;
+            // console.log(data);
+        
+
+       
+        // console.log('data :',result.json())
+        //   var data = []
+        //   console.log("edata1 :: ", edata1)
+        //   console.log("option : ", edata1.options)
+        
+        //   Object.keys(edata1.options).map(function(key, index) {
+        //     console.log(edata1.options[key]);
+        //     data.push(edata1.options[key]);
+        //   });          
+        // //   console.log(data);
+        Chart.defaults.global.defaultFontSize=25;
+
+        var chartOptions = {
+            startAngle: -Math.PI / 4,
+            legend: {
+                position: 'left',
+            },
+            animation: {
+                animateRotate: true
+            },
+            scale: {
+                pointLabels: {
+                fontSize: 60
+                }
+            }
+        };
+        Chart.defaults.global.defaultFontStyle = 'Bold';
+        // Chart.defaults.font = 50
+          var myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: option,
+                datasets: [{
+                    label: '# of Votes',
+                    data: Data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+    })
+
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 2000 });
+    </script>
+</body>
+</html>

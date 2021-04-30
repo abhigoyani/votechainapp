@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      position: relative;
+    }
+    body,
+    input {
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+    }
+    .main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      height: 100vh;
+    }
+    .section {
+      width: 100%;
+      height: 100%;
+      margin: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* border: 2px solid black; */
+    }
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0rem 5rem;
+      transition: all 0.2s 0.7s;
+      overflow: hidden;
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+    .title {
+      font-size: 2.2rem;
+      color: #444;
+      margin-bottom: 10px;
+    }
+    .input-field i {
+      text-align: center;
+      line-height: 55px;
+      color: #acacac;
+      transition: 0.5s;
+      font-size: 1.1rem;
+    }
+
+    .input-field input {
+      background: none;
+      outline: none;
+      border: none;
+      line-height: 1;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .input-field input::placeholder {
+      color: #aaa;
+      font-weight: 500;
+    }
+    .btn {
+      width: 195px;
+      background-color: #5995fd;
+      border: none;
+      outline: none;
+      height: 49px;
+      letter-spacing: 2px;
+      border-radius: 49px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+    .bg {
+      position: absolute;
+      height: 2000px;
+      width: 2000px;
+      z-index: -1;
+      background-image: linear-gradient(to right, #4481eb, #04befe);
+      clip-path: circle(50% at 10% 25%);
+    }
+    .btn:hover {
+      background-color: #4d84e2;
+    }
+    .input-field input {
+      background: none;
+      outline: none;
+      border: none;
+      line-height: 1;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #333;
+    }
+    .input-field {
+      max-width: 380px;
+      width: 100%;
+      background-color: #f0f0f0;
+      margin: 10px 0;
+      height: 55px;
+      border-radius: 55px;
+      display: grid;
+      grid-template-columns: 15% 85%;
+      padding: 0 0.4rem;
+      position: relative;
+    }
+    .logo {
+      height: 70%;
+      /* animation: 0.5 ease-in-out; */
+      margin: auto;
+      width: 75%;
+    }
+
+    @media (max-width: 1120px) {
+      .logo {
+        height: 70%;
+        width: 100%;
+      }
+    }
+    @media (max-width: 1070px) {
+      .main {
+        flex-direction: column;
+        background-image: linear-gradient(to right, #4481eb, #04befe);
+      }
+      .s2 {
+        display: none;
+      }
+      .logo {
+        display: none;
+      }
+      .bg {
+        display: none;
+      }
+      .btn {
+        color: black;
+        background: none;
+        font-size: 13px;
+        border: 2px solid white;
+      }
+    }
+    @media (max-width: 640px) {
+      .btn {
+        font-size: 13px;
+        padding: 14px 27px;
+      }
+    }
+    .choice {
+      width: 100%;
+      margin: 5px;
+      padding-left: 20px;
+    }
+    #show-btn,
+    #votdiv {
+      display: none;
+    }
+    .header {
+      /* z-index: 4; */
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* border: 1px solid; */
+    }
+    .header li {
+      margin: 10px;
+      transition: 0.5s;
+      padding: 15px 42px;
+      list-style: none;
+    }
+    .header li a:hover {
+      text-decoration: underline;
+      color: #5995fd;
+    }
+    .header li a {
+      text-decoration: none;
+      color: black;
+    }
+  </style>
+  <body>
+    <div class="header">
+      <li><a href="">Block Exporer</a></li>
+      <li><a href="download"> Download Blockchain</a></li>
+      <li><a href="/vote">find Poll</a></li>
+      <li><a href="/account">Account</a></li>
+    </div>
+    <div class="main">
+      <div class="bg"></div>
+      <div class="section s2" data-aos="fade-up">
+        <div class="logo">
+          <img src="{{url_for('static',filename='img/poll-animated.svg')}}" alt="" />
+        </div>
+      </div>
+      <div class="section" data-aos="fade-up">
+        <form action="" method="POST" class="sign-in-form">
+          <h2 class="title">Create Poll</h2>
+          <div class="input-field">
+            <i class="fas fa-key"></i>
+            <input type="text" name="title" id="" placeholder="Title" />
+          </div>
+          <div class="optiondiv">
+            <div class="input-field" style="margin-bottom: 20px">
+              <i class="fas fa-lock"></i>
+              <input type="text" name="option" id="" placeholder="option" />
+            </div>
+            <div class="input-field" style="margin-bottom: 20px">
+              <i class="fas fa-lock"></i>
+              <input type="text" name="option" id="" placeholder="option" />
+            </div>
+          </div>
+          <input type="button" value="add option" class="btn solid optionbtn" />
+          <div class="choice">
+            <input
+              type="radio"
+              id="private"
+              name="visiblity"
+              onclick="show(1)"
+              value="private"
+            />
+            <label for="private">private</label>
+          </div>
+          <div class="choice">
+            <input
+              type="radio"
+              id="public"
+              onclick="show(0)"
+              name="visiblity"
+              value="public"
+              checked
+            />
+            <label for="public">public</label>
+          </div>
+          <div class="votdiv" id="votdiv">
+            <div class="input-field" style="margin-bottom: 20px">
+              <i class="fas fa-lock"></i>
+              <input
+                type="text"
+                name="voter"
+                placeholder="particpent's public key"
+              />
+            </div>
+          </div>
+          <input
+            id="show-btn"
+            type="button"
+            class="votbtn btn"
+            style="margin-bottom: 14px"
+            value="add particpent"
+          />
+          <input type="submit" class="btn" value="create poll" />
+        </form>
+      </div>
+    </div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 2000 });
+    </script>
+    <script>
+      const addopt =
+        '<div class="input-field" style="margin-bottom: 20px"><i class="fas fa-lock"></i><input type="text" name="option" id="" placeholder="option" /></div>';
+      const btnopt = document.querySelector(".optionbtn");
+      const optdiv = document.querySelector(".optiondiv");
+      const addel = () => {
+        optdiv.insertAdjacentHTML("beforeend", addopt);
+      };
+      btnopt.addEventListener("click", () => addel());
+    </script>
+
+    <script>
+      const addvot =
+        ' <div class="input-field" style="margin-bottom: 20px"><i class="fas fa-lock"></i><input type="text" name="voter"placeholder="particpent\'s public key" /></div>';
+      const btnvot = document.querySelector(".votbtn");
+      const votdiv = document.querySelector(".votdiv");
+      const addev = () => {
+        votdiv.insertAdjacentHTML("beforeend", addvot);
+      };
+      btnvot.addEventListener("click", () => addev());
+    </script>
+    <script>
+      let show = (x) => {
+        if (x == 0) {
+          document.getElementById("votdiv").style.display = "none";
+          document.getElementById("show-btn").style.display = "none";
+        } else {
+          document.getElementById("votdiv").style.display = "block";
+          document.getElementById("show-btn").style.display = "block";
+        }
+      };
+    </script>
+  </body>
+  <!-- <div class="bg"></div> -->
+</html>
